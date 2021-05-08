@@ -65,6 +65,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
                     fontSize: 45.0,
                     fontWeight: FontWeight.w900,
                   ),
+                    speed: const Duration(milliseconds: 180)
                 ),
               ],
             ),

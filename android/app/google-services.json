@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "613351568103",
+    "project_id": "thunder-bolt-b8c4d",
+    "storage_bucket": "thunder-bolt-b8c4d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:613351568103:android:1d9c0ba37fec0d259f6842",
+        "android_client_info": {
+          "package_name": "co.machine.flash_chat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "613351568103-9hah9uvsmal3pldoknmqhbp8gosh0k14.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBfW_nTBKNgZIdsq1NaMHmTCkATM6Vl-es"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "613351568103-9hah9uvsmal3pldoknmqhbp8gosh0k14.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
