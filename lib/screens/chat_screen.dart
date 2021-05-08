@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flash_chat/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
+import 'dart:core';
 class ChatScreen extends StatefulWidget {
 
   static const String id = 'chat_screen';
@@ -20,7 +20,7 @@ class _ChatScreenState extends State<ChatScreen> {
   final messageTextController = TextEditingController();
   final _auth = FirebaseAuth.instance;
   User loggedInUser;
-  
+
 
   @override
   void initState() {
@@ -40,6 +40,21 @@ class _ChatScreenState extends State<ChatScreen> {
     }
   }
 
+//  void getMessages() async {
+//   final messages = await _firestore.collection('messages').get();
+//    for (var message in messages.docs){
+//      print(message.data().cast());
+//    }
+//  }
+
+  void messagesStream() async {
+   await for( var snapshot in _firestore.collection('messages').snapshots()) {
+     for (var message in snapshot.docs) {
+       print(message.data().cast());
+     }
+   }
+}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,8 +64,9 @@ class _ChatScreenState extends State<ChatScreen> {
           IconButton(
               icon: Icon(Icons.close),
               onPressed: () {
-                _auth.signOut();
-                Navigator.pop(context);
+                messagesStream();
+//                _auth.signOut();
+//                Navigator.pop(context);
               }),
         ],
         title: Text('⚡️Chat'),
@@ -61,6 +77,26 @@ class _ChatScreenState extends State<ChatScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
+            StreamBuilder<QuerySnapshot>(
+              stream: _firestore.collection('messages').snapshots(),
+              builder: (context, snapshot){
+                if(snapshot.hasData){
+                  final messages = snapshot.data.docs;
+                  List<Text> messageWidgets = [];
+                  for (var message in messages){
+                    final messageText = message.data()['text'];
+                    final messageSender = message.data()['sender'];
+
+                    final messageWidget =
+                        Text('$messageText from $messageSender');
+                    messageWidgets.add(messageWidget);
+                  }
+                  return Column(
+                    children: messageWidgets,
+                  );
+                }
+              },
+            ),
             Container(
               decoration: kMessageContainerDecoration,
               child: Row(
