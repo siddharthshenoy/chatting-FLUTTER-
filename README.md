@@ -11,6 +11,5 @@
 - mixin
 - routing different pages
 ## next 
-- setting up firebase
 - sync chatting  
  
